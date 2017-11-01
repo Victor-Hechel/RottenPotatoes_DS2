@@ -1,0 +1,50 @@
+<div class="row">
+	<div class="col-md-8 col-md-offset-2">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h2 class="text-center">Editar Perfil</h2>
+			</div>
+			<div class="panel-body">
+			<% if flash[:mensagem] != nil %>
+				<div class="alert alert-danger">
+					<%=flash[:mensagem]%>	
+				</div>
+			<% end %>
+				<div class="container-fluid">
+					<form method="post" action="/logged/editarUsuario">
+						<div class="form-group row">
+							<label for="nome" class="form-label">Nome: </label>
+							<input type="text" class="form-control" name="nome" id="nome" value="<%=@usuario.nome%>" required>
+						</div>
+						<% if session[:admin] == "f" %>
+							<div class="form-group row">
+								<label for="dataDeNascimento" class="form-label">Data de Nascimento: </label>
+								<input type="date" class="form-control" name="dataDeNascimento" id="dataDeNascimento" value="<%=@usuario.dataDeNascimento%>" required>
+							</div>
+
+							<div class="form-group row">
+								<label for="email" class="form-label">Email: </label>
+								<input type="text" class="form-control" name="email" id="email" value="<%=@usuario.email%>" required>
+							</div>
+						<% end %>
+						<div class="form-group row">
+							<label for="login" class="form-label">Login: </label>
+							<input type="text" class="form-control" name="login" id="login" value="<%=@usuario.login%>" required>
+						</div>
+						<div class="form-group row">
+							<label for="senha" class="form-label">Senha: </label>
+							<input type="password" class="form-control" name="senha" id="senha" required>
+						</div>
+						<div class="form-group row">
+							<label for="senha2" class="form-label">Digite a senha novamente: </label>
+							<input type="password" class="form-control" name="senha2" id="senha2" required>
+						</div>
+						<div class="form-group row">
+							<input type="submit" value="Criar Conta" class="form-control">
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

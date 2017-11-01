@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.min.css">
+  <script type="text/javascript" src="/jquery/jquery-3.0.0.min.js"></script>
+  <script type="text/javascript" src="/jquery/jquery-ui-1.12.1/jquery-ui.min.js"></script>
+  <link rel="stylesheet" href="/jquery/jquery-ui-1.12.1/jquery-ui.min.css">
+
+  <script type="text/javascript">
+    $(function(){
+        let filmes = [];
+        $(document).on("keyup", "#procurar", event => {
+            let pesquisa = event.target.value;
+            var url = '/logged/getFilmesByTitulo/' + pesquisa;
+            filmes = [];
+
+            $.getJSON(url, function(response){
+                if (response.length > 0) {
+                    response.forEach(function(filme){
+                        filmes.push(filme.titulo);
+                    });
+                }
+
+                $("#procurar").autocomplete({
+                    source: filmes
+                });
+                
+            });
+        });
+    });
+  </script>
+</head>
+<body>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/logged/listar/filmes">Rotten Potatoes</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li><a href="/logged/listar/filmes">Filmes</a></li>
+            <li><a href="/logged/listar/series">Séries</a></li>
+            <li>
+                <form method="GET" action="/logged/pesquisaFilme">
+                    <div class="navbar-form ui-widget">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Digite o nome do filme..." id="procurar" name="pesquisa">
+                        </div>
+                    </div>    
+                </form>
+                
+            </li>
+            <% if session[:admin] == "t" %>
+              <li><a href="/admin/listarUsuarios">Listar Usuários</a></li>
+              <li><a href="/admin/cadastrarShow">Adicionar Show</a></li>
+              <li><a href="/admin/cadastrarCritico">Cadastrar Crítico</a></li>
+            <% end %>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/logged/usuarioDetalhes"><%=session[:login]%></a></li>
+            <li>
+                <a href="/logged/usuarioDetalhes" style="padding: 0px;">
+                   <img src="/avaliacoes/don.jpg" width="64" height="64" class="img-circle img-responsive"> 
+                </a>
+              
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="container">
+        <%= yield %>
+    </div>
+  
+</body>
+</html>
+

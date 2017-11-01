@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Login</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
+	<style type="text/css">
+		a{
+			width: 100%;
+		}
+	</style>
+</head>
+<body>
+	<div class="row">
+		<div class="col-md-6 col-md-offset-3">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h2 class="text-center">Login</h2>
+				</div>
+				<div class="panel-body">
+				<% if flash[:mensagem] != nil %>
+					<div class="alert alert-danger"><%=flash[:mensagem]%></div>
+				<% end %>
+					<div class="container-fluid">
+						<form method="post" action="/logar">
+							
+							<div class="form-group row">
+								<label for="login" class="form-label">Login: </label>
+								<input type="text" name="login" id="login" class="form-control">
+							</div>
+							<div class="form-group row">
+								<label for="senha" class="form-label">Senha: </label>
+								<input type="password" name="senha" id="senha" class="form-control">
+							</div>
+							<div class="form-group row">
+								<input type="submit" value="Logar" class="form-control">
+							</div>
+						</form>
+					</div>
+					<hr>
+					<a href="/criarConta" class="btn btn-default">Criar Conta</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--<h1>Login</h1>
+	<h3><%=flash[:mensagem]%></h3>
+	<form method="post" action="/logar">
+		<label name="login">Login: </label>
+		<input type="text" name="login" id="login">
+		<br>
+		<label name="senha">Senha: </label>
+		<input type="password" name="senha" id="senha">
+		<br>
+		<input type="submit" value="Logar">
+	</form>
+	<a href="/criarConta">Criar Conta</a>-->
+	</body>
+</html>

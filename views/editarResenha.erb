@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Editar Resenha</title>
+	<meta charset="utf-8">
+</head>
+<body>
+	<h1>Editar Resenha</h1>
+	<form method="post" action="/loggedOnly/editarResenha">
+		<label for="resenha">Resenha: </label>
+		<textarea id="resenha" name="resenha"><%=@resenha.resenha%></textarea>
+		<br>
+		<label for="nota">Nota: </label>
+		<input type="number" name="nota" id="nota" value="<%=@resenha.nota%>">
+		<br>
+		<input type="hidden" name="idResenha" value="<%=@resenha.id%>">
+		<input type="submit" value="Enviar">
+	</form>
+</body>
+</html>

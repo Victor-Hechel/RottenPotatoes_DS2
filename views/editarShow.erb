@@ -1,0 +1,86 @@
+<div class="row">
+	<div class="col-md-6 col-md-offset-3">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h2 class="text-center">Editar Show</h2>
+			</div>
+			<div class="panel-body">
+				<% if flash[:mensagem] != nil %>
+					<div class="alert alert-danger">
+						<%=flash[:mensagem]%>
+					</div>
+				<% end %>	
+				<div class="container-fluid">
+					<form method="post" action="/admin/editarShow" enctype="multipart/form-data">
+						<div class="form-group row">
+							<label for="titulo" class="form-label">Título: </label>
+							<input type="text" name="titulo" id="titulo" class="form-control" value="<%=@show.titulo%>" required>
+						</div>
+						<div class="form-group row">
+							<label for="diretor" class="form-label">Diretor: </label>
+							<input type="text" name="diretor" id="diretor" class="form-control" value="<%=@show.diretor%>" required>
+						</div>
+						<div class="form-group row">
+							<label for="genero" class="form-label">Gênero: </label>
+							<select name="genero" id="genero" class="select form-control" value="<%=@show.genero%>" required>
+								<option value="Terror">Terror</option>
+								<option value="Comedia">Comédia</option>
+								<option value="Acao">Ação</option>
+								<option value="Drama">Drama</option>
+								<option value="Animacao">Animação</option>
+								<option value="Romance">Romance</option>
+							</select>
+						</div>
+						<div class="form-group row">
+							<label for="cartaz">
+								Cartaz:
+							</label>
+							<label for="cartaz" class="btn btn-default btn-file" style="width:100%">
+								Adicionar Cartaz<input type="file" name="cartaz" id="cartaz" class="form-control" style="display:none" novalidate>
+							</label>
+							
+						</div>
+
+
+						<div class="form-group row">
+							<label class="form-label" for="sinopse">Sinopse: </label>
+							<textarea class="form-control" name="sinopse" id="sinopse" rows="5" style="resize: none;"><%=@show.sinopse%></textarea>
+						</div>
+
+						<% if @tipo == "filmes" %>
+							<div class="form-group row">
+								<label for="dataLancamento" class="form-label">Data de Lançamento: </label>
+								<input type="date" name="dataLancamento" id="dataLancamento" class="form-control" value="<%=@show.dataLancamento%>">
+							</div>
+						<% elsif @tipo == "series" %>
+
+							<div class="form-group row">
+								<label for="dataInicio" class="form-label">Data de estreia: </label>
+								<input type="date" name="dataInicio" id="dataInicio" class="form-control" value="<%=@show.dataInicio%>">
+							</div>
+							<div class="form-group row">
+								<label for="dataFim" class="form-label">Data do final: </label>
+								<input type="date" name="dataFim" id="dataFim" class="form-control" value="<%=@show.dataFim%>">
+							</div>
+							<div class="form-group row">
+								<label for="numeroEpisodios" class="form-label">Número de episódios: </label>
+								<input type="number" name="numeroEpisodios" id="numeroEpisodios" class="form-control" min="1" value="<%=@show.numeroEpisodios%>">
+							</div>								
+							<div class="form-group row">
+								<label for="numeroTemporadas" class="form-label">Número de temporadas: </label>
+								<input type="number" name="numeroTemporadas" id="numeroTemporadas" class="form-control" min="1" value="<%=@show.numeroTemporadas%>">
+							</div>								
+						<% end %>
+
+							<input type="hidden" name="id" value="<%=@show.id%>">
+							<input type="hidden" name="tipo" value="<%=@tipo%>">
+
+							<div class="form-group row">
+								<input type="submit" value="Cadastrar" class="form-control">
+							</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

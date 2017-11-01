@@ -1,0 +1,98 @@
+<div class="row">
+	<div class="col-md-10 col-md-offset-1">
+		<div class="panel panel-default">
+			<div class="panel-heading"><h1 class="text-center"><%=@show.titulo%></h1></div>
+				<% if flash[:mensagem] != nil %>
+					<div class="panel-body">
+						<div class="alert alert-danger"><%=flash[:mensagem]%></div>
+					</div>
+				<% end %>
+			<ul class="list-group">
+				<li class="list-group-item">
+					<div class="media">
+					    <div class="media-left">
+					    	<img src="/uploads/shows/<%=@show.id%>.jpg" class="media-object" style="width: 200px;">
+					    </div>
+					    <div class="media-body">
+							<p><b>Diretor: </b> <%=@show.diretor%></p>
+							<p><b>Gênero: </b> <%=@show.genero%></p>
+				     	<% if @detalhe == "series" %>
+				     		<p><b>Aor ar: </b> <%=@show.dataInicio.strftime("%d/%m/%Y") + " | " + @show.dataFim.strftime("%d/%m/%Y")%></p>
+				     		<p><b>Número de temporadas: </b> <%=@show.numeroTemporadas%></p>
+				     		<p><b>Número de episódios: </b> <%=@show.numeroEpisodios%></p>
+				     	<% else %>
+				     		<p><b>Data de Lançamento: </b> <%=@show.dataLancamento.strftime("%d/%m/%Y")%></p>
+				     	<% end %>
+				     		<p><b>Sinopse: </b><%=@show.sinopse%></p>
+					    </div>
+					    <div class="media-right text-center">
+					    	<div class="media-top">
+					    		<% if @show.notaPublico > 8.5 %>
+					    			<img src="/avaliacoes/don.jpg" class="media-object img-circle" style="width: 150px;">
+					    		<% elsif @show.notaPublico < 8.5 && @show.notaPublico > 7.0 %>
+					    			<img src="/avalicoes/rocky.png" class="media-object img-circle" style="width: 150px;">
+					    		<% elsif @show.notaPublico <7.0 && @show.notaPublico > 4.0 %>
+					    			<img src="/avaliacoes/click.jpg" class="media-object img-circle" style="width: 150px;">
+					    		<% else %>
+					    			<img src="/avaliacoes/jarjar.jpg" class="media-object img-circle" style="width: 150px;">
+					    		<% end %>
+						    		
+					    		<span class="text-center">Nota do público: <%=@show.notaPublico%></span>
+					    	</div>
+					    	<br />
+					    	<div class="media-bottom">
+					    		<% if @show.notaCriticos > 8.5 %>
+					    			<img src="/avaliacoes/don.jpg" class="media-object img-circle" style="width: 150px;">
+					    		<% elsif @show.notaCriticos < 8.5 && @show.notaCriticos > 7.0 %>
+					    			<img src="/avalicoes/rocky.png" class="media-object img-circle" style="width: 150px;">
+					    		<% elsif @show.notaCriticos <7.0 && @show.notaCriticos > 4.0 %>
+					    			<img src="/avaliacoes/click.jpg" class="media-object img-circle" style="width: 150px;">
+					    		<% else %>
+					    			<img src="/avaliacoes/jarjar.jpg" class="media-object img-circle" style="width: 150px;">
+					    		<% end %>
+					    		<span>Nota dos criticos: <%=@show.notaCriticos%></span>
+					    	</div>
+					    	
+					    </div>
+					</div>
+				</li>
+				<li class="list-group-item"> 
+					<h3 class="text-center">Resenhas</h3>
+				</li>
+				<% if @show.resenhas.size == 0 %>
+					<h4 class="text-center">Não há nenhuma resenha</h4>
+
+				<% else 
+					@show.resenhas.each do |resenha|
+				%>
+
+					<li class="list-group-item">
+						<div class="media">
+							<div class="media-left">
+								<img src="/avaliacoes/don.jpg" class="media-object img-circle" style="width: 64px; height: 64px;">
+							</div>
+							<div class="media-body" style="border: 1px solid black; padding: 1%;">
+								<h4 class="media-heading">
+									<b><%=resenha.usuario.login%></b>
+								</h4>
+								<p><%=resenha.resenha%></p>
+								<hr style="border: 0.7px solid;" />
+								<h4><b>Nota: </b> <%=resenha.nota%></h4>
+							</div>
+							<br>
+							<div class="media-body">
+								<button type="button" class="btn btn-default">Adiconar comentário</button>
+							</div>
+						</div>
+					</li>
+					<% end 
+				end %>
+				<% if session[:admin] == "f" %>
+					<li class="list-group-item">
+						<a href="/loggedOnly/adicionarResenha/<%=@show.id%>" class="btn btn-default form-control">Adicionar Resenha</a>
+					</li>
+				<% end %>
+			</ul>
+		</div>
+	</div>
+</div>

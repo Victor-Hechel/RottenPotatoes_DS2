@@ -1,0 +1,93 @@
+<div class="row">
+	<div class="col-md-10 col-md-offset-1">
+		<div class="panel panel-default">
+			<div class="panel-heading"><h2 class="text-center"><%=@tipo%></h2></div>
+				<% if flash[:mensagem] != nil %>
+					<div class="panel-body">
+						<div class="alert alert-danger"><%=flash[:mensagem]%></div>
+					</div>
+				<% end %>
+			<ul class="list-group">
+				<div id="filmes">
+				<% if @shows.size == 0 %>
+					<li class="list-group-item"><h3 class="text-center">Não há filmes</h3></li>
+				<% end %>
+				<% @shows.each do |show| %>
+					<li class="list-group-item">
+						<div class="media">
+						    <div class="media-left">
+						    	<img src="/uploads/shows/<%=show.id%>.jpg" class="media-object" style="width: 200px;">
+						    </div>
+						    <div class="media-body">
+					     		<h3 class="media-heading">
+					     		<% if @tipo == "Séries" %>
+					     			<a href="/logged/showDetalhes/series/<%=show.id%>"><%=show.titulo%></a>
+					     		<% else %>
+					     			<a href="/logged/showDetalhes/filmes/<%=show.id%>"><%=show.titulo%></a>
+					     		<% end %>
+					     		</h3>
+					     	<% if @tipo == "Séries" %>
+					     		<h5><%=show.dataInicio.strftime("%d/%m/%Y") + " | " + show.dataFim.strftime("%d/%m/%Y")%></h5>
+					     	<% else %>
+					     		<h5><%=show.dataLancamento.strftime("%d/%m/%Y")%></h5>
+					     	<% end %>
+					     		<p><b>Sinopse: </b><%=show.sinopse%></p>
+						    </div>
+						    <div class="media-right text-center">
+						    	<% if session[:admin] == "t" %>
+						    	<div class="media-top">
+						    		<% if @tipo == "Séries" %>
+								    	<a href="/admin/editarShow/series/<%=show.id%>" type="button" class="btn btn-default" aria-label="Left Align">
+										  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+
+										</a>
+										<a href="/admin/excluirShow/series/<%=show.id%>" type="button" class="btn btn-default" aria-label="Left Align">
+										  <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+										</a>
+									<% else %>
+										<a href="/admin/editarShow/filmes/<%=show.id%>" type="button" class="btn btn-default" aria-label="Left Align">
+										  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+
+										</a>
+										<a href="/admin/excluirShow/filmes/<%=show.id%>" type="button" class="btn btn-default" aria-label="Left Align">
+										  <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+										</a>
+									<% end %>
+						    	</div>
+						    	<% end %>
+						    	<div class="media-top" style="margin-top: 20px;">
+						    		<% if show.notaPublico > 85 %>
+						    			<img src="/avaliacoes/don.jpg" class="media-object img-circle" style="width: 150px;">
+						    		<% elsif show.notaPublico < 85 && show.notaPublico > 70 %>
+						    			<img src="/avalicoes/rocky.png" class="media-object img-circle" style="width: 150px;">
+						    		<% elsif show.notaPublico <70 && show.notaPublico > 40 %>
+						    			<img src="/avaliacoes/click.jpg" class="media-object img-circle" style="width: 150px;">
+						    		<% else %>
+						    			<img src="/avaliacoes/jarjar.jpg" class="media-object img-circle" style="width: 150px;">
+						    		<% end %>
+ 						    		
+						    		<span class="text-center">Nota do público: <%=show.notaPublico%></span>
+						    	</div>
+						    	<br />
+						    	<div class="media-bottom">
+						    		<% if show.notaCriticos > 85 %>
+						    			<img src="/avaliacoes/don.jpg" class="media-object img-circle" style="width: 150px;">
+						    		<% elsif show.notaCriticos < 85 && show.notaCriticos > 70 %>
+						    			<img src="/avalicoes/rocky.png" class="media-object img-circle" style="width: 150px;">
+						    		<% elsif show.notaCriticos <70 && show.notaCriticos > 40 %>
+						    			<img src="/avaliacoes/click.jpg" class="media-object img-circle" style="width: 150px;">
+						    		<% else %>
+						    			<img src="/avaliacoes/jarjar.jpg" class="media-object img-circle" style="width: 150px;">
+						    		<% end %>
+						    		<span>Nota dos criticos: <%=show.notaCriticos%></span>
+						    	</div>
+						    	
+						    </div>
+						</div>
+					</li>
+				<% end %>
+				</div>
+			</ul>
+		</div>
+	</div>
+</div>

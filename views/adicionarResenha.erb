@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Adicionar Resenha</title>
+	<meta charset="utf-8">
+</head>
+<body>
+	<h1>Adicionar Resenha</h1>
+	<form method="post" action="/loggedOnly/adicionarResenha">
+		<label for="resenha">Resenha: </label>
+		<textarea id="resenha" name="resenha"></textarea>
+		<br>
+		<label for="nota">Nota: </label>
+		<input type="number" name="nota" id="nota">
+		<br>
+		<input type="hidden" name="idShow" value="<%=@id%>">
+		<input type="submit" value="Enviar">
+	</form>
+</body>
+</html>
